@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* Enable dark mode with a class */
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+    font-family: "Parkinsans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}

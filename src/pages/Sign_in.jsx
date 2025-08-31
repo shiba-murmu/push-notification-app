@@ -9,9 +9,10 @@ const Quote = () => {
     const fetchQuote = async () => {
         try {
             // const res = await fetch("/api/random"); // for development purpose
-            const res = await fetch("https://api.quotable.io/random");
+            const res = await fetch("https://zenquotes.io/api/random");
             const data = await res.json();
-            setQuote({ content: data.content, author: data.author });
+            // setQuote({ content: data.content, author: data.author });
+            setQuote({ content: data[0].q, author: data[0].a });
             
             // console.log(data);
         } catch (error) {

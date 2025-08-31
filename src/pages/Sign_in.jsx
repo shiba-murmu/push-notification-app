@@ -8,8 +8,8 @@ const Quote = () => {
     // Fetch random quote from api
     const fetchQuote = async () => {
         try {
-            // const res = await fetch("/api/random"); // for development purpose
-            const res = await fetch("/api/quote");  // for production use
+            const res = await fetch("/api/random"); // for development purpose
+            // const res = await fetch("/api/quote");  // for production use
             const data = await res.json();
             setQuote({ content: data.content, author: data.author });
             // ////////////// for production use only /////////

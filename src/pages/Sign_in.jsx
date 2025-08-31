@@ -9,12 +9,12 @@ const Quote = () => {
     const fetchQuote = async () => {
         try {
             // const res = await fetch("/api/random"); // for development purpose
-            const res = await fetch("https://type.fit/api/quotes");  // for production use
+            const res = await fetch("/api/quote");  // for production use
             const data = await res.json();
-            // setQuote({ content: data.content, author: data.author });
+            setQuote({ content: data.content, author: data.author });
             // ////////////// for production use only /////////
-            const random = data[Math.floor(Math.random() * data.length)];
-            setQuote({ content: random.text, author: random.author });
+            // const random = data[Math.floor(Math.random() * data.length)];
+            // setQuote({ content: random.text, author: random.author });
             ////////////////////////////////////////////////////////////
         } catch (error) {
             console.error("Error fetching quote:", error);

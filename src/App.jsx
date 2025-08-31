@@ -72,7 +72,7 @@ function App() {
                                     <div className="relative inline-block text-left">
                                         <button
                                             onClick={() => setDropdownOpen(!dropdownOpen)}
-                                            className={`bg-[#efefef]  dark:bg-[var(--color-bg-light-dark)] hover:dark:bg-[#293749] flex md:w-50 items-center rounded-[5px] px-5 p md:py-[13px] border border-[#c9c7c7] dark:border-[#2d2f38] text-base font-medium text-[#787878] dark:text-white`}
+                                            className={`bg-[#efefef]  dark:bg-[var(--color-bg-light-dark)] hover:dark:bg-[#293749] flex md:w-50 items-center rounded-[5px] px-5 py-2 md:py-[13px] border border-[#c9c7c7] dark:border-[#2d2f38] text-base font-medium text-[#787878] dark:text-white`}
                                         >
                                             Change theme
                                             <span className="pl-4">

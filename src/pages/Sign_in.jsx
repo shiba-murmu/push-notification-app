@@ -9,12 +9,13 @@ const Quote = () => {
     const fetchQuote = async () => {
         try {
             // const res = await fetch("/api/random"); // for development purpose
-            const res = await fetch("https://zenquotes.io/api/random");
+            const res = await fetch("https://type.fit/api/quotes");  // for production use
             const data = await res.json();
             // setQuote({ content: data.content, author: data.author });
-            setQuote({ content: data[0].q, author: data[0].a });
-            
-            // console.log(data);
+            // ////////////// for production use only /////////
+            const random = data[Math.floor(Math.random() * data.length)];
+            setQuote({ content: random.text, author: random.author });
+            ////////////////////////////////////////////////////////////
         } catch (error) {
             console.error("Error fetching quote:", error);
         }

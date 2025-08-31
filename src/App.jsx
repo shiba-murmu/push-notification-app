@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import Sign_in from "./pages/Sign_in";
 import { Routes, Route } from 'react-router-dom';
 import Profile from './pages/Profile';
+import Task_table from "./pages/Task_table";
 
 function App() {
     const [theme, setTheme] = useState(
@@ -133,6 +134,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Sign_in />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/add-task" element={<Task_table />} />
                 </Routes>
             </div>
             <div className="text-center p-4 bg-gray-200 dark:bg-[#02021e] text-gray-800 dark:text-gray-200">

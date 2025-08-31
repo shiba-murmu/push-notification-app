@@ -2,43 +2,53 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 
 const Quote = () => {
-  const [quote, setQuote] = useState("Daily reminder's, Daily progress.");
-  const [fade, setFade] = useState(true);
+    const [quote, setQuote] = useState({ content: "Loading...", author: "" });
+    const [fade, setFade] = useState(true);
 
-  const quotes = [
-    "Daily reminder's, Daily progress.",
-    "Keep pushing your limits.",
-    "Believe in yourself.",
-    "Stay positive, work hard, make it happen."
-  ];
+    // Fetch random quote from api
+    const fetchQuote = async () => {
+        try {
+            const res = await fetch("/api/random");
+            const data = await res.json();
+            setQuote({ content: data.content, author: data.author });
+            
+            // console.log(data);
+        } catch (error) {
+            console.error("Error fetching quote:", error);
+        }
+    };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFade(false); // fade out
-      setTimeout(() => {
-        setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
-        setFade(true); // fade in
-      }, 500); // match CSS duration
-    }, 5000);
+    useEffect(() => {
+        fetchQuote();
+        const interval = setInterval(() => {
+            setFade(false); // fade out
+            setTimeout(() => {
+                fetchQuote();
+                setFade(true); // fade in
+            }, 1000); // match CSS duration
+        }, 30000); // 30 seconds
 
-    return () => clearInterval(interval);
-  }, []);
+        return () => clearInterval(interval);
+    }, []);
 
-  return (
-    <span
-      className={`text-[#000000] px-4 text-center text-xl md:text-4xl font-extrabold dark:text-white transition-opacity duration-500 ${fade ? "opacity-100" : "opacity-0"}`}
-    >
-      {quote}
-    </span>
-  );
+    return (
+        <>
+            <span
+                className={`text-[#000000] px-4 text-center text-md md:text-2xl font-bold dark:text-white transition-opacity duration-1000 ${fade ? "opacity-100" : "opacity-0"}`}
+            >
+                {quote.content}
+            </span>
+            <span className='text-[#787878] dark:text-white'>- {quote.author}</span>
+        </>
+    );
 };
 
 
 function Sign_in() {
     return (
         <>
-            <div className='h-[25rem] md:h-[30rem] gap-10 md:gap-20 flex flex-col justify-end items-center'>
-                <div className='flex flex-col justify-center items-center gap-3'>
+            <div className='h-[30rem] md:h-[30rem] gap-10 md:gap-15 flex flex-col justify-end items-center'>
+                <div className='flex flex-col md:px-50 h-50 md:h-70 flex-wrap justify-center items-center gap-3'>
                     {/* here will show some quotes. */}
                     <Quote />
                 </div>

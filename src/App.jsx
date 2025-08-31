@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import React, { useRef } from "react";
 import Sign_in from "./pages/Sign_in";
+import { Routes, Route } from 'react-router-dom';
+import Profile from './pages/Profile';
+
 function App() {
     const [theme, setTheme] = useState(
         localStorage.theme || "system" // default to system
@@ -127,7 +130,10 @@ function App() {
 
             <div className="h-screen  bg-white dark:bg-gray-900 text-black dark:text-white transition-colors">
                 <Dropdown />
-                <Sign_in />
+                <Routes>
+                    <Route path="/" element={<Sign_in />} />
+                    <Route path="/profile" element={<Profile />} />
+                </Routes>
             </div>
             <div className="text-center p-4 bg-gray-200 dark:bg-[#02021e] text-gray-800 dark:text-gray-200">
                 Footer

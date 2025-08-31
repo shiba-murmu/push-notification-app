@@ -8,7 +8,7 @@ const Quote = () => {
     // Fetch random quote from api
     const fetchQuote = async () => {
         try {
-            // const res = await fetch("/api/random");
+            // const res = await fetch("/api/random"); // for development purpose
             const res = await fetch("https://api.quotable.io/random");
             const data = await res.json();
             setQuote({ content: data.content, author: data.author });

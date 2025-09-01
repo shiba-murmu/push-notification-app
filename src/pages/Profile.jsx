@@ -36,12 +36,9 @@ function Profile() {
                 </div>
                 <div className='flex gap-4 flex-col md:flex-row md:justify-center md:items-center justify-center items-center h-50'>
                     <Button_tap_animate>
-
-
                         <button onClick={handleButtonClick} className='bg-[#efefef] w-40 border border-[#c9c7c7] dark:border-0 dark:bg-[#293749] hover:cursor-pointer hover:dark:bg-[var(--color-bg-light-dark)] dark:text-white rounded-md px-4 py-2'>Add Task</button>
                     </Button_tap_animate>
                     <Button_tap_animate>
-
                         <button className='bg-[#efefef] w-40 border border-[#c9c7c7] dark:border-0 dark:bg-[#293749] hover:cursor-pointer hover:dark:bg-[var(--color-bg-light-dark)] dark:text-white rounded-md px-4 py-2'>Logout</button>
                     </Button_tap_animate>
                 </div>

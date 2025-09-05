@@ -2,6 +2,9 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Button_tap_animate from '../components/animation/Button_tap_animate';
+import app from '../firebaseConfig';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+// Component to fetch and display quotes with fade effect
 const Quote = () => {
     const [quote, setQuote] = useState({ content: "Loading...", author: "" });
     const [fade, setFade] = useState(true);
@@ -53,10 +56,21 @@ const Quote = () => {
 function Sign_in() {
     const navigate = useNavigate();
 
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
     const handleLogin = () => {
-        // Perform login logic here
-        // On successful login, redirect to profile page
-        navigate("/profile");
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                // The signed-in user info.
+                const user = result.user;
+                console.log("User signed in:", user);
+                // On successful login, redirect to profile page
+                navigate("/profile");
+            })
+            .catch((error) => {
+                console.error("Error signing in:", error);
+            });
     };
     return (
         <>

@@ -8,7 +8,7 @@ function Task_table() {
                     <span className='text-xl md:text-3xl font-bold'>Your tasks</span>
                 </div>
                 <div className='my-5 flex justify-center items-center  py-2 px-4 w-full md:w-1/2 mx-auto  gap-2'>
-                    <input type="text" className='border border-[#c9c7c7] dark:border-[#2d2f38] rounded p-1.5' placeholder='Add a new task'/>
+                    <input type="text" className='border border-[#c9c7c7] dark:border-[#2d2f38] rounded p-1.5 dark:placeholder:text-[#929292] placeholder:text-[#939090]' placeholder='Add a new task'/>
                     <button className='bg-[#004145] hover:bg-[#45a049] text-white font-bold py-2 px-4 rounded'>Add Task</button>
                 </div>
                 <div className=' flex justify-center items-center w-full'>

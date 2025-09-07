@@ -7,6 +7,8 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useContext } from 'react';
 import { MyContext } from '../pages/Data/MyContext'
 // Component to fetch and display quotes with fade effect
+import { toast } from 'react-toastify';
+
 const Quote = () => {
     const [quote, setQuote] = useState({ content: "Loading...", author: "" });
     const [fade, setFade] = useState(true);
@@ -67,13 +69,13 @@ function Sign_in() {
             .then((result) => {
                 // The signed-in user info.
                 const loggedInUser = result.user;
-                console.log("User signed in:", loggedInUser);
                 setUser({
                     name : loggedInUser.displayName,
                     email: loggedInUser.email,
                     photo: loggedInUser.photoURL,
                 }); // Store user in context
                 // On successful login, redirect to profile page
+                toast.success("Login successful!");
                 navigate("/profile");
             })
             .catch((error) => {

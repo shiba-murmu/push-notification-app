@@ -145,8 +145,9 @@ function App() {
                     } />
 
                     <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-                    <Route path="/add-task" element={<ProtectedRoute><Task_table /></ProtectedRoute>} />
-                    <Route path="/details" element={<ProtectedRoute><Details /></ProtectedRoute>} />
+                    <Route path="/add-task" element={<Task_table />} />
+                    {/* <Route path="/add-task" element={<ProtectedRoute><Task_table /></ProtectedRoute>} /> */}
+                    <Route path="/details/:id" element={<ProtectedRoute><Details /></ProtectedRoute>} />
 
                 </Routes>
             </div>

@@ -1,11 +1,56 @@
-import React from 'react'
-// import second from 'first'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useRef } from 'react';
+import { toast } from 'react-toastify';
+import database from '../firebaseConfig';
+import { collection, addDoc, onSnapshot } from "firebase/firestore";
+
 function Task_table() {
     const navigate = useNavigate();
-    const handleDetailsClick = () => {
-        navigate('/details');
-    }
+    const inputRef = useRef();
+    const [taskItem, setTaskItem] = useState([]); // store tasks from firestore
+    useEffect(() => {
+        const unsubscribe = onSnapshot(
+            collection(database, 'tasks'),
+            (snapshot) => {
+                const fetchTask = snapshot.docs.map((doc, index) => ({
+                    id: doc.id,
+                    no: index + 1,
+                    ...doc.data(),
+                }));
+                setTaskItem(fetchTask)
+            },
+            (error) => {
+                console.error('Error fetching tasks.', error)
+                toast.error('Failed to fetch tasks.');
+            }
+        );
+        return () => unsubscribe();
+    }, []);
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const task = event.target.task.value;
+        if (!task) {
+            toast.error("Task cannot be empty");
+            return;
+        }
+        // Clear the input field after submission
+        event.target.reset();
+
+        try {
+            const docRef = await addDoc(collection(database, "tasks"), {
+                task: task,
+                completed: false
+            });
+            console.log("Document written with ID: ", docRef.id);
+            toast.success("Task added successfully!");
+        } catch (e) {
+            console.error("Error adding document: ", e);
+            toast.error("Error adding task.");
+        }
+    };
+
     return (
         <>
             <div>
@@ -13,45 +58,43 @@ function Task_table() {
                     <span className='text-xl md:text-3xl font-bold'>Your tasks</span>
                 </div>
                 <div className='my-5 flex justify-center items-center  py-2 px-4 w-full md:w-1/2 mx-auto  gap-2'>
-                    <input type="text" className='border border-[#c9c7c7] dark:border-[#2d2f38] rounded p-1.5 dark:placeholder:text-[#929292] placeholder:text-[#939090]' placeholder='Add a new task'/>
-                    <button className='bg-[#004145] hover:bg-[#45a049] text-white font-bold py-2 px-4 rounded'>Add Task</button>
+                    <form action="" onSubmit={handleSubmit} className='flex justify-center items-center w-full gap-2'>
+                        <input type="text"
+                            name="task" id="task"
+                            className='border border-[#c9c7c7] dark:border-[#2d2f38] rounded p-1.5 dark:placeholder:text-[#929292] placeholder:text-[#939090]' placeholder='Add a new task' />
+                        <button type='submit' className='bg-[#004145] dark:bg-[var(--color-bg-dark)] hover:cursor-pointer text-white font-bold py-2 px-4 rounded' ref={inputRef}>Add Task</button>
+                    </form>
                 </div>
-                <div className=' flex justify-center items-center w-full'>
-                    <table className='min-w-full'>
-                        <thead className='mb-5'>
-                            <tr className=''>
-                                <th className=" w-1/3 text-center ">
-                                    <span className=' border border-[#c9c7c7]  dark:border-[#2d2f38] py-2 px-4 rounded dark:bg-[var(--color-bg-dark)]'>Task No.</span>
-                                </th>
-                                <th className=" w-1/3 text-center ">
-                                    <span className=' border border-[#c9c7c7] dark:border-[#2d2f38]  py-2 px-4 rounded dark:bg-[var(--color-bg-dark)]'>Status</span>
-                                </th>
-                                <th className=" w-1/3 text-center ">
-                                    <span className=' border border-[#c9c7c7] dark:border-[#2d2f38] py-2 px-4 rounded dark:bg-[var(--color-bg-dark)]'>Details</span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody >
-                            
-                            <tr className="border-b h-20 border-gray-200 dark:border-[#2d2f38]">
-                                <td className="px-4 py-2 text-center">2</td>
-                                <td className="px-4 py-2 text-center">Completed</td>
-                                <td className="py-5 flex justify-center items-center">
-                                    <button
-                                        onClick={handleDetailsClick}
-                                       className={`bg-[#efefef]  dark:bg-[var(--color-bg-light-dark)] hover:dark:bg-[#293749] flex md:w-24 items-center justify-center rounded-[5px] px-3 py-1 md:py-[10px] border border-[#c9c7c7] dark:border-[#2d2f38] text-base  font-medium hover:cursor-pointer text-[#787878] dark:text-white`}
-                                    >
-                                        Details
-                                    </button>
-                                </td>
-                            </tr>
-                            
-                        </tbody>
-                    </table>
+                <div className='w-11/12 md:w-3/4 mx-auto my-5 '>
+                    <div className='flex justify-evenly rounded-t-2xl items-center dark:bg-[var(--color-bg-dark)]  py-3 md:py-4 border-b border-gray-200 dark:border-[#2d2f38] w-full'>
+                        <div>No.</div>
+                        <div>Status</div>
+                        <div>Details</div>
+                    </div>
+                    <div className='flex flex-col overflow-auto h-[32rem] md:h-[28rem] text-xs scrollbar-hidden'>
+                        <table className='w-full'>
+
+                            <tbody>
+                                {
+                                    taskItem.map((task) => (
+                                        <tr key={task.id} className='flex justify-between md:justify-evenly items-center  border border-gray-200 dark:border-[#2d2f38] p-5 w-full my-2 rounded-2xl'>
+                                            <td className='bg-[#004145] text-white dark:bg-[var(--color-bg-dark)] rounded-full py-1.5 md:py-2 px-2.5'>{task.no}</td>
+                                            <td className='font-thin w-[20%] text-center h-5 text-wrap overflow-hidden'>{task.task}....</td>
+                                            <td>
+                                                <button className='bg-[#004145] hover:cursor-pointer text-white dark:bg-[var(--color-bg-dark)] py-1.5 px-4 rounded-full'>
+                                                    Details
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </>
     )
 }
 
-export default Task_table
+export default Task_table;

@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-
+import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyCeeutlG2wnquifHsi1K-vYZUmAykPM_iI",
   authDomain: "taskpusher-377dr.firebaseapp.com",
@@ -9,5 +9,6 @@ const firebaseConfig = {
   appId: "1:1068427763391:web:fbd59798a47c6dfb88700a"
 };
 
-const app = initializeApp(firebaseConfig);
-export default app;
+export const app = initializeApp(firebaseConfig);
+const database = getFirestore(app);
+export default database;

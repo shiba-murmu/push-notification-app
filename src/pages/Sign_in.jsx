@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Button_tap_animate from '../components/animation/Button_tap_animate';
-import app from '../firebaseConfig';
+import { app } from '../firebaseConfig';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useContext } from 'react';
 import { MyContext } from '../pages/Data/MyContext'

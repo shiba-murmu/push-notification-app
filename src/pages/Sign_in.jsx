@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import Button_tap_animate from '../components/animation/Button_tap_animate';
 import app from '../firebaseConfig';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { useContext } from 'react';
+import { MyContext } from '../pages/Data/MyContext'
 // Component to fetch and display quotes with fade effect
 const Quote = () => {
     const [quote, setQuote] = useState({ content: "Loading...", author: "" });
@@ -58,13 +60,19 @@ function Sign_in() {
 
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
+    const { User, setUser, theme, setTheme } = useContext(MyContext);
 
     const handleLogin = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
                 // The signed-in user info.
-                const user = result.user;
-                console.log("User signed in:", user);
+                const loggedInUser = result.user;
+                console.log("User signed in:", loggedInUser);
+                setUser({
+                    name : loggedInUser.displayName,
+                    email: loggedInUser.email,
+                    photo: loggedInUser.photoURL,
+                }); // Store user in context
                 // On successful login, redirect to profile page
                 navigate("/profile");
             })

@@ -4,6 +4,8 @@ import Sign_in from "./pages/Sign_in";
 import { Routes, Route } from 'react-router-dom';
 import Profile from './pages/Profile';
 import Task_table from "./pages/Task_table";
+import ProtectedRoute from "./pages/Protected/ProtectedRoute";
+import PublicRoutes from "./pages/Public_Routes/PublicRoutes";
 
 function App() {
     const [theme, setTheme] = useState(
@@ -132,9 +134,15 @@ function App() {
             <div className="h-screen  bg-white dark:bg-gray-900 text-black dark:text-white transition-colors">
                 <Dropdown />
                 <Routes>
-                    <Route path="/" element={<Sign_in />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/add-task" element={<Task_table />} />
+                    <Route path="/" element={
+                        <PublicRoutes>
+                            <Sign_in />
+                        </PublicRoutes>
+                    } />
+
+                    <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+                    <Route path="/add-task" element={<ProtectedRoute><Task_table /></ProtectedRoute>} />
+                    
                 </Routes>
             </div>
             <div className="text-center p-4 bg-gray-200 dark:bg-[#02021e] text-gray-800 dark:text-gray-200">

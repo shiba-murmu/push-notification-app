@@ -1,6 +1,11 @@
 import React from 'react'
-
+// import second from 'first'
+import { useNavigate } from 'react-router-dom'
 function Task_table() {
+    const navigate = useNavigate();
+    const handleDetailsClick = () => {
+        navigate('/details');
+    }
     return (
         <>
             <div>
@@ -27,27 +32,20 @@ function Task_table() {
                             </tr>
                         </thead>
                         <tbody >
-                            <tr className="border-b h-20 border-gray-200 dark:border-[#2d2f38]">
-                                <td className="px-4 py-2 text-center">1</td>
-                                <td className="px-4 py-2 text-center">In Progress</td>
-                                <td className="py-5 flex justify-center items-center">
-                                    <button
-                                        className={`bg-[#efefef]  dark:bg-[var(--color-bg-light-dark)] hover:dark:bg-[#293749] flex md:w-24 items-center justify-center rounded-[5px] px-3 py-1 md:py-[10px] border border-[#c9c7c7] dark:border-[#2d2f38] text-base  font-medium hover:cursor-pointer text-[#787878] dark:text-white`}>
-                                        Details
-                                    </button>
-                                </td>
-                            </tr>
+                            
                             <tr className="border-b h-20 border-gray-200 dark:border-[#2d2f38]">
                                 <td className="px-4 py-2 text-center">2</td>
                                 <td className="px-4 py-2 text-center">Completed</td>
                                 <td className="py-5 flex justify-center items-center">
                                     <button
+                                        onClick={handleDetailsClick}
                                        className={`bg-[#efefef]  dark:bg-[var(--color-bg-light-dark)] hover:dark:bg-[#293749] flex md:w-24 items-center justify-center rounded-[5px] px-3 py-1 md:py-[10px] border border-[#c9c7c7] dark:border-[#2d2f38] text-base  font-medium hover:cursor-pointer text-[#787878] dark:text-white`}
                                     >
                                         Details
                                     </button>
                                 </td>
                             </tr>
+                            
                         </tbody>
                     </table>
                 </div>

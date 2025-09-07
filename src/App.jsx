@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import Sign_in from "./pages/Sign_in";
 import { Routes, Route } from 'react-router-dom';
 import Profile from './pages/Profile';
+import Details from "./pages/Details";
 import Task_table from "./pages/Task_table";
 import ProtectedRoute from "./pages/Protected/ProtectedRoute";
 import PublicRoutes from "./pages/Public_Routes/PublicRoutes";
@@ -145,6 +146,7 @@ function App() {
 
                     <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                     <Route path="/add-task" element={<ProtectedRoute><Task_table /></ProtectedRoute>} />
+                    <Route path="/details" element={<ProtectedRoute><Details /></ProtectedRoute>} />
 
                 </Routes>
             </div>

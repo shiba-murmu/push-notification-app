@@ -4,10 +4,11 @@ import Button_tap_animate from '../components/animation/Button_tap_animate'
 import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { MyContext } from '../pages/Data/MyContext'
+import { toast } from 'react-toastify';
 
 const PicAndInfo = () => {
     const { User } = useContext(MyContext);
-    
+
   
     return (
         <>
@@ -37,7 +38,8 @@ function Profile() {
 
     const Logouthandle = () => {
         logout(); // calling the logout funt. from the MyContext
-        navigate('/') // navigate to sign-in page.
+        toast.success("Logout Successful"); // toast notification for logout success.
+        navigate('/') // navigate to sign-in page.  
     }
     return (
         <>

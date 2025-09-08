@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import database from '../firebaseConfig';
 import { doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
 import { toast } from 'react-toastify';
-import { i, s, tr } from 'motion/react-client';
+
 function Details() {
     const { id } = useParams();
     const [task, setTask] = useState(null);

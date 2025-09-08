@@ -71,7 +71,7 @@ function App() {
         return (
             <>
                 {/* <!-- ====== Dropdowns Section Start --> */}
-                <section className="bg-[#ffffff] dark:bg-[var(--color-bg-dark)] border-b-1 border-[#c8c8c8] dark:border-[#2d2f38]  py-3 dark:bg-dark">
+                <section className="bg-[#ffffff] dark:bg-[var(--color-bg-dark)] border-b-1 border-[var(--border-in-light-theme)] dark:border-[#2d2f38]  py-3 dark:bg-dark">
                     <div className="container">
                         <div className="flex justify-center">
                             {/* one */}
@@ -80,7 +80,7 @@ function App() {
                                     <div className="relative inline-block text-left">
                                         <button
                                             onClick={() => setDropdownOpen(!dropdownOpen)}
-                                            className={`bg-[#efefef]  dark:bg-[var(--color-bg-light-dark)] hover:dark:bg-[#293749] flex md:w-50 items-center rounded-[5px] px-5 py-2 md:py-[13px] border border-[#c9c7c7] dark:border-[#2d2f38] text-base font-medium hover:cursor-pointer text-[#787878] dark:text-white`}
+                                            className={`bg-[#efefef]  dark:bg-[var(--color-bg-light-dark)] hover:dark:bg-[#293749] flex md:w-50 items-center rounded-[5px] px-5 py-2 md:py-[13px] border border-[var(--border-in-light-theme)] dark:border-[#2d2f38] text-base font-medium hover:cursor-pointer text-[#787878] dark:text-white`}
                                         >
                                             Change theme
                                             <span className="pl-4">
@@ -145,8 +145,8 @@ function App() {
                     } />
 
                     <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-                    <Route path="/add-task" element={<Task_table />} />
-                    {/* <Route path="/add-task" element={<ProtectedRoute><Task_table /></ProtectedRoute>} /> */}
+                    {/* <Route path="/add-task" element={<Task_table />} /> */}
+                    <Route path="/add-task" element={<ProtectedRoute><Task_table /></ProtectedRoute>} />
                     <Route path="/details/:id" element={<ProtectedRoute><Details /></ProtectedRoute>} />
 
                 </Routes>

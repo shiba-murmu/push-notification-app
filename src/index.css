@@ -13,6 +13,8 @@ body {
 :root {
     --color-bg-dark : #02021e;
     --color-bg-light-dark : #1f2a37;
+    --border-in-light-theme: #969292;
+    --border-in-dark-theme: #2d2f38;
 }
 
 /* Scrollbar hidden */

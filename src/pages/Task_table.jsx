@@ -78,10 +78,10 @@ function Task_table() {
                                 {
                                     taskItem.map((task) => (
                                         <tr key={task.id} className='flex justify-between md:justify-evenly items-center  border border-gray-200 dark:border-[#2d2f38] p-5 w-full my-2 rounded-2xl'>
-                                            <td className='bg-[#004145] text-white dark:bg-[var(--color-bg-dark)] rounded-full py-1.5 md:py-2 px-2.5'>{task.no}</td>
+                                            <td className=' dark:text-white dark:bg-[var(--color-bg-dark)] rounded-full py-1.5 md:py-2 px-2.5'>{task.no}</td>
                                             <td className='font-thin w-[20%] text-center h-5 text-wrap overflow-hidden'>{task.task}....</td>
                                             <td>
-                                                <button className='bg-[#004145] hover:cursor-pointer text-white dark:bg-[var(--color-bg-dark)] py-1.5 px-4 rounded-full'>
+                                                <button onClick={() => navigate(`/details/${task.id}`)} className='bg-[#004145] hover:cursor-pointer text-white dark:bg-[var(--color-bg-dark)] py-1.5 px-4 rounded-full'>
                                                     Details
                                                 </button>
                                             </td>

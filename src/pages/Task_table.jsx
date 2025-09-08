@@ -2,49 +2,69 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useRef } from 'react';
 import { toast } from 'react-toastify';
-import database from '../firebaseConfig';
-import { collection, addDoc, onSnapshot } from "firebase/firestore";
-
+import database, { app } from '../firebaseConfig';
+import { collection, addDoc, onSnapshot, query, where } from "firebase/firestore";
+import { getAuth } from 'firebase/auth';
+import { auth } from '../firebaseConfig';
 function Task_table() {
     const navigate = useNavigate();
     const inputRef = useRef();
     const [taskItem, setTaskItem] = useState([]); // store tasks from firestore
+    const user = auth.currentUser; // logged in user...
     useEffect(() => {
+        if (!user) return; // wait until user is logged in
+
+        // ✅ create a query for the current user's tasks
+        const q = query(
+            collection(database, "tasks"),
+            where("userId", "==", user.uid)
+        );
+
+        // ✅ listen in real-time
         const unsubscribe = onSnapshot(
-            collection(database, 'tasks'),
-            (snapshot) => {
-                const fetchTask = snapshot.docs.map((doc, index) => ({
+            q,
+            (querySnapshot) => {
+                const tasks = querySnapshot.docs.map((doc) => ({
                     id: doc.id,
-                    no: index + 1,
                     ...doc.data(),
                 }));
-                setTaskItem(fetchTask)
+                setTaskItem(tasks); // update state with live data
             },
             (error) => {
-                console.error('Error fetching tasks.', error)
-                toast.error('Failed to fetch tasks.');
+                console.error("Error fetching tasks:", error);
+                toast.error("Error fetching tasks.");
             }
         );
-        return () => unsubscribe();
-    }, []);
+
+        return () => unsubscribe(); // cleanup listener on unmount
+    }, [user]); // re-run if user changes
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const task = event.target.task.value;
+
         if (!task) {
             toast.error("Task cannot be empty");
             return;
         }
-        // Clear the input field after submission
-        event.target.reset();
+
+        const user = auth.currentUser; // get latest user
+
+        if (!user) {
+            toast.error("You must be logged in to add a task.");
+            return;
+        }
 
         try {
             const docRef = await addDoc(collection(database, "tasks"), {
                 task: task,
-                completed: false
+                created: new Date(),
+                userId: user.uid, // ✅ safe now
             });
+
             console.log("Document written with ID: ", docRef.id);
             toast.success("Task added successfully!");
+            event.target.reset();
         } catch (e) {
             console.error("Error adding document: ", e);
             toast.error("Error adding task.");

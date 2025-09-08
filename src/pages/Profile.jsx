@@ -8,8 +8,6 @@ import { toast } from 'react-toastify';
 
 const PicAndInfo = () => {
     const { User } = useContext(MyContext);
-
-  
     return (
         <>
             <div className='mt-10 mb-5 md:h-full md:flex md:justify-center md:items-center md:mt-5 md:w-1/4'>

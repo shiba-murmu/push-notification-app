@@ -7,6 +7,7 @@ import Details from "./pages/Details";
 import Task_table from "./pages/Task_table";
 import ProtectedRoute from "./pages/Protected/ProtectedRoute";
 import PublicRoutes from "./pages/Public_Routes/PublicRoutes";
+import { useNavigate } from "react-router-dom";
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
     // Handler hook for when Outside click dropdown close End Code ====>>
 
 
+  
     const Dropdown = () => {
         const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -71,10 +73,9 @@ function App() {
         return (
             <>
                 {/* <!-- ====== Dropdowns Section Start --> */}
-                <section className="bg-[#ffffff] dark:bg-[var(--color-bg-dark)] border-b-1 border-[var(--border-in-light-theme)] dark:border-[#2d2f38]  py-3 dark:bg-dark">
+                <section className="bg-[#ffffff] dark:bg-[var(--color-bg-dark)] border-b-1 border-[var(--border-in-light-theme)] dark:border-[#2d2f38]  py-1 dark:bg-dark">
                     <div className="container">
-                        <div className="flex justify-center">
-                            {/* one */}
+                        <div className="flex justify-center items-center">
                             <div ref={domNode} className="w-full sm:w-1/2 lg:w-1/2">
                                 <div className="text-center ">
                                     <div className="relative inline-block text-left">
@@ -93,7 +94,7 @@ function App() {
                                                     className="fill-current"
                                                 >
                                                     <path d="M10 14.25C9.8125 14.25 9.65625 14.1875 9.5 14.0625L2.3125 7C2.03125 6.71875 2.03125 6.28125 2.3125 6C2.59375 5.71875 3.03125 5.71875 3.3125 6L10 12.5312L16.6875 5.9375C16.9688 5.65625 17.4063 5.65625 17.6875 5.9375C17.9687 6.21875 17.9687 6.65625 17.6875 6.9375L10.5 14C10.3437 14.1563 10.1875 14.25 10 14.25Z" />
-                                                </svg> 
+                                                </svg>
                                             </span>
                                         </button>
                                         <div
@@ -129,14 +130,14 @@ function App() {
             </button>
         );
     };
-    
+
     return (
         <>
 
             <div className="h-screen  bg-white dark:bg-gray-900 text-black dark:text-white transition-colors">
                 <Dropdown />
                 <Routes>
-                   
+
 
                     <Route path="/" element={
                         <PublicRoutes>

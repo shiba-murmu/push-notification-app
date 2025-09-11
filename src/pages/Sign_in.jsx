@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Button_tap_animate from '../components/animation/Button_tap_animate';
 import { app } from '../firebaseConfig';

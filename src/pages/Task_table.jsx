@@ -5,10 +5,10 @@ import { toast } from 'react-toastify';
 import database, { app } from '../firebaseConfig';
 import { collection, addDoc, onSnapshot, query, where } from "firebase/firestore";
 import { getAuth } from 'firebase/auth';
-import { auth } from '../firebaseConfig';
 function Task_table() {
     const navigate = useNavigate();
     const inputRef = useRef();
+    const auth = getAuth(app);
     const [taskItem, setTaskItem] = useState([]); // store tasks from firestore
     const user = auth.currentUser; // logged in user...
     useEffect(() => {
